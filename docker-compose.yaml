@@ -1,0 +1,57 @@
+version: '3.2'
+
+volumes:
+  mysql_data:
+  mysql_data_test:
+
+services:
+  mysql:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ROOT_PASSWORD: 'very_secure_password'
+      MYSQL_DATABASE: 'connections_db'
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--sql_mode=']
+    volumes:
+      - mysql_data:/var/lib/mysql
+    expose:
+      - "3306"
+    ports:
+      - "3307:3306"
+
+  mysql_test:
+    image: mysql:5.7.22
+    environment:
+      MYSQL_ROOT_PASSWORD: 'very_secure_password'
+      MYSQL_DATABASE: 'connections_db_test'
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--sql_mode=']
+    volumes:
+      - mysql_data_test:/var/lib/mysql
+    expose:
+      - "3306"
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx_connections
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "5000:80"
+    depends_on:
+      - connections
+
+  connections:
+    image: connections:dev
+    build: .
+    env_file:
+      - .local.env
+    command: >
+      gunicorn -b 0.0.0.0:5000
+      --access-logfile -
+      --reload
+      connections:app
+    expose:
+      - "5000"
+    volumes:
+      - ./:/app
+    depends_on:
+      - mysql

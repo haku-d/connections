@@ -1,0 +1,10 @@
+.idea/
+*.pyc
+*.swp
+.DS_Store
+.coverage
+.cache
+.env
+.python-version
+.pytest_cache/
+reports/

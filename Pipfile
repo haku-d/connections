@@ -1,0 +1,42 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask-cors = "==3.0.7"
+flask-marshmallow = "==0.10.0"
+flask-migrate = "==2.4.0"
+flask-sqlalchemy = "==2.3.2"
+gunicorn = "==19.9.0"
+marshmallow-enum = "==1.4.1"
+marshmallow-sqlalchemy = "==0.16.0"
+mysqlclient = "==1.4.2.post1"
+sqlalchemy = "==1.2.4"
+webargs = ">=4,<5"
+flask = "==1.0.2"
+
+[dev-packages]
+"flake8" = "*"
+"flake8-import-order" = "*"
+"flake8-per-file-ignores" = "*"
+"flake8-quotes" = "*"
+"pep8-naming" = "*"
+factory-boy = "*"
+flake8_module_name = {git = "https://github.com/pmdarrow/flake8_module_name.git",ref = "support-numbers"}
+pytest = "*"
+
+[requires]
+python_version = "3.6"
+
+[scripts]
+serve = "flask run"
+lint = "flake8 ."
+test = "pytest -v --cov=."
+test-htmlcov = "pytest -v --cov=. --cov-report=html"
+test-xmlcov = "pytest -v --cov=. --cov-report=xml"
+db-createtestdb = "python auth/create_test_db.py"
+db-createdb = "python auth/create_db.py"
+db-makemigrations = "flask db migrate -m"
+db-migrate = "flask db upgrade"
+celeryworker = "celery -A auth.web.celery --loglevel=INFO worker -B -Q refresh_twitter_connections"

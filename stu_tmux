@@ -1,0 +1,15 @@
+tmux kill-session -t connections
+tmux new-session -s connections -n server -d
+tmux send-keys -t connections 'cd ~/code/connections-flask' C-m
+tmux send-keys -t connections 'docker-compose up -d' C-m
+tmux new-window -n tests -t connections
+tmux send-keys -t connections:2 'cd ~/code/connections-flask' C-m
+tmux send-keys -t connections:2 'docker-compose exec connections pytest' C-m
+tmux split-window -v -t connections:2
+tmux select-layout -t connections:2 main-horizontal
+tmux send-keys -t connections:2.2 'cd ~/code/connections-flask' C-m
+tmux send-keys -t connections:2.2 'docker-compose exec connections flake8 .' C-m
+tmux new-window -n vim -t connections
+tmux send-keys -t connections:3 'cd ~/code/connections-flask' C-m
+tmux send-keys -t connections:3 'vim -N' C-m
+tmux attach -t connections
