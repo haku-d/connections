@@ -1,6 +1,6 @@
 from http import HTTPStatus
 
-from flask import Blueprint, request
+from flask import Blueprint
 
 blueprint = Blueprint('connections', __name__)
 

@@ -1,12 +1,11 @@
 from http import HTTPStatus
 
-from flask import Flask, jsonify
-from marshmallow.exceptions import ValidationError
-from sqlalchemy.exc import IntegrityError
-
 from connections.config import Config
 from connections.extensions import cors, db, ma, migrate
 from connections.views import blueprint
+from flask import Flask, jsonify
+from marshmallow.exceptions import ValidationError
+from sqlalchemy.exc import IntegrityError
 
 
 def create_app(config_object=Config):
