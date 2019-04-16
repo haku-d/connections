@@ -1,10 +1,14 @@
 from http import HTTPStatus
 
-from flask import Blueprint, jsonify
+from connections.models.person import Person
+from connections.schemas import PersonSchema
+from flask import Blueprint
 
 blueprint = Blueprint('connections', __name__)
 
 
 @blueprint.route('/people')
-def hello():
-    return jsonify([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]), HTTPStatus.OK
+def get_people():
+    people_schema = PersonSchema(many=True)
+    people = Person.query.all()
+    return people_schema.jsonify(people), HTTPStatus.OK
