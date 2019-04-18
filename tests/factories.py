@@ -1,7 +1,8 @@
-from factory import Faker, Sequence
+from factory import Faker, Sequence, SubFactory
 from factory.alchemy import SQLAlchemyModelFactory
 
 from connections.database import db
+from connections.models.connection import Connection
 from connections.models.person import Person
 
 
@@ -24,3 +25,16 @@ class PersonFactory(BaseFactory):
     class Meta:
 
         model = Person
+
+
+class ConnectionFactory(BaseFactory):
+    """Connection factory."""
+
+    connection_type = 'friend'
+
+    from_person = SubFactory(PersonFactory)
+    to_person = SubFactory(PersonFactory)
+
+    class Meta:
+
+        model = Connection
