@@ -8,8 +8,13 @@ from connections.schemas import PersonSchema
 blueprint = Blueprint('connections', __name__)
 
 
-@blueprint.route('/people')
+@blueprint.route('/people', methods=['GET'])
 def get_people():
     people_schema = PersonSchema(many=True)
     people = Person.query.all()
     return people_schema.jsonify(people), HTTPStatus.OK
+
+
+@blueprint.route('/people', methods=['POST'])
+def create_person():
+    return '', HTTPStatus.CREATED
