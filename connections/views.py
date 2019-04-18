@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
-from flask import Blueprint, jsonify
+from flask import Blueprint
+from webargs.flaskparser import use_args
 
 from connections.models.person import Person
 from connections.schemas import PersonSchema
@@ -16,6 +17,7 @@ def get_people():
 
 
 @blueprint.route('/people', methods=['POST'])
-def create_person():
-    return (jsonify({'first_name': 'Bob', 'last_name': 'Loblaw', 'email': 'bob.loblaw@lawblog.co'}),
-            HTTPStatus.CREATED)
+@use_args(PersonSchema(), locations=('json',))
+def create_person(person):
+    person.save()
+    return PersonSchema().jsonify(person), HTTPStatus.CREATED
