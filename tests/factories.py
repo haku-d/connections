@@ -1,7 +1,8 @@
-from connections.database import db
-from connections.models.person import Person
 from factory import Faker, Sequence
 from factory.alchemy import SQLAlchemyModelFactory
+
+from connections.database import db
+from connections.models.person import Person
 
 
 class BaseFactory(SQLAlchemyModelFactory):

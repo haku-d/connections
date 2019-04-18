@@ -1,8 +1,9 @@
 from http import HTTPStatus
 
+from flask import Blueprint
+
 from connections.models.person import Person
 from connections.schemas import PersonSchema
-from flask import Blueprint
 
 blueprint = Blueprint('connections', __name__)
 

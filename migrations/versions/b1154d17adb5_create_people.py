@@ -1,12 +1,12 @@
 """Create people
 
 Revision ID: b1154d17adb5
-Revises: 
+Revises:
 Create Date: 2019-04-16 23:10:26.177401
 
 """
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 
 
 # revision identifiers, used by Alembic.

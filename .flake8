@@ -1,6 +1,7 @@
 [flake8]
 max-line-length = 100
 import-order-style = smarkets
-application-import-names = auth
-exclude = sdks
+application-import-names = connections
+# Ignore some necessary style violations in Alembic generated code
+per-file-ignores = migrations/versions/*.py: E122,E128,E501,X100
 

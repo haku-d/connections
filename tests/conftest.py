@@ -1,6 +1,5 @@
-"""Defines fixtures available to all tests."""
-
 import pytest
+
 from connections.app import create_app
 from connections.config import TestConfig
 from connections.database import db as _db
