@@ -36,3 +36,8 @@ Other useful commands for stopping, starting and restarting the services.
 ```
 docker-compose stop | start | restart
 ```
+
+- Migrate the database
+```
+docker-compose exec connections flask db upgrade
+```
