@@ -1,0 +1,120 @@
+swagger: "2.0"
+info:
+  description: "Swagger doc for connections app"
+  version: "1.0.0"
+  title: "Connections"
+schemes:
+- "https"
+- "http"
+paths:
+  /people:
+    get:
+      summary: "Get list of people"
+      description: ""
+      operationId: "getPeople"
+      produces:
+      - "application/json"
+      responses:        
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Person"
+        400:
+          description: "Invalid input"
+    post:
+      summary: "Create a new person"
+      description: ""
+      operationId: "createPerson"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Person object that needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Person"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Person"
+        400:
+          description: "Invalid input"
+  /connections:
+    post:
+      summary: "Create a new connection"
+      description: ""
+      operationId: "createConnection"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Connection object that needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Connection"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Connection"
+        400:
+          description: "Invalid input"
+definitions:
+  Person:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      email:
+        type: "string"
+
+  Connection:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      from_person_id:
+        type: "integer"
+        format: "int64"
+        description: "From Person"
+      to_person_id:
+        type: "integer"
+        format: "int64"
+        description: "To Person"
+      connection_type:
+        type: "string"
+        description: "Connection Type"
+        enum:
+        - "mother"
+        - "father"
+        - "son"
+        - "daughter"
+        - "husband"
+        - "wife"
+        - "brother"
+        - "sister"
+        - "friend"
+        - "coworker"
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
