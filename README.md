@@ -41,3 +41,13 @@ docker-compose stop | start | restart
 ```
 docker-compose exec connections flask db upgrade
 ```
+
+- Run tests
+```
+docker-compose exec connections pytest
+```
+
+- Lint code for style violations
+```
+docker-compose exec connections flake8 .
+```
