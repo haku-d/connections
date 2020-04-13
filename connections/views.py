@@ -1,11 +1,11 @@
 from http import HTTPStatus
 
-from flask import Blueprint, abort
-from webargs.flaskparser import use_args
+from flask import abort, Blueprint
 from marshmallow_enum import EnumField
+from webargs.flaskparser import use_args
 
-from connections.models.person import Person
 from connections.models.connection import Connection, ConnectionType
+from connections.models.person import Person
 from connections.schemas import ConnectionSchema, PersonSchema
 
 blueprint = Blueprint('connections', __name__)
@@ -40,12 +40,12 @@ def get_connections():
 
 
 @blueprint.route('/connections/<int:connection_id>', methods=['PATCH'])
-@use_args({"connection_type": EnumField(ConnectionType)}, locations=("json",))
+@use_args({'connection_type': EnumField(ConnectionType)}, locations=('json',))
 def update_connection(args, connection_id):
     connection = Connection.query.get(connection_id)
 
     if not connection:
-        abort(HTTPStatus.NOT_FOUND)
+        abort(HTTPStatus.NOT_FOUND, 'Connection does not exist')
 
     connection.update(**args)
 
